@@ -34,7 +34,8 @@ public class StudentService {
 		if(opt.get()!=null) {
 			Student obj  = opt.get();
 			obj.setMajor(major);
-			return "major is updated to " + major;
+			repo.save(obj);
+			return "major is updated";
 		}else {
 			throw new RuntimeException("unable to find the student with given id");
 		}
