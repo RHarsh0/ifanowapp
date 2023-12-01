@@ -33,7 +33,7 @@ public class StudentController {
 		return new ResponseEntity<>(serv.addStudent(obj),HttpStatus.ACCEPTED);
 	}
 	@PatchMapping("student/{id}")
-	public ResponseEntity<String> updateMajor(@PathVariable int id, @RequestBody String major){
+	public ResponseEntity<String> updateMajor(@PathVariable int id, @RequestBody Student major){
 		return new ResponseEntity<>(serv.updateMajor(id, major),HttpStatus.ACCEPTED);
 	}
 	@DeleteMapping("student/{id}")

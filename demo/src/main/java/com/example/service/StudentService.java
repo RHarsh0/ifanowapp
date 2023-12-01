@@ -29,12 +29,12 @@ public class StudentService {
 		}
 	}
 	
-	public String updateMajor(int id, String major) {
+	public String updateMajor(int id, Student major) {
 		Optional<Student> opt = repo.findById(id);
 		if(opt.get()!=null) {
 			Student obj  = opt.get();
-//			obj.setMajor(major);
-			repo.save(obj);
+			major.setId(id);
+			repo.save(major);
 			return "major is updated";
 		}else {
 			throw new RuntimeException("unable to find the student with given id");
