@@ -27,12 +27,11 @@ public class Student {
 	private int id;
 	private String name;
 	private String major;
-	private LocalDate creationDate;
-	public Student(String name, String major, LocalDate creationDate) {
+	private LocalDate creationDate= LocalDate.now();
+	public Student(String name, String major) {
 		super();
 		this.name = name;
 		this.major = major;
-		this.creationDate = creationDate;
 	}
 	
 	
