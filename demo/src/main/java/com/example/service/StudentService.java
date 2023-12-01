@@ -33,7 +33,7 @@ public class StudentService {
 		Optional<Student> opt = repo.findById(id);
 		if(opt.get()!=null) {
 			Student obj  = opt.get();
-			obj.setMajor(major);
+//			obj.setMajor(major);
 			repo.save(obj);
 			return "major is updated";
 		}else {
