@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Information</title>
+</head>
+<body>
+
+  <h2>Student Information</h2>
+
+  <!-- Form to add new students -->
+  <form id="studentForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="major">Major:</label>
+    <input type="text" id="major" name="major" required>
+
+    <!-- <label for="date">Date:</label>
+    <input type="date" id="date" name="date" required> -->
+
+    <input type="submit" value="Add Student">
+  </form>
+
+  <hr>
+
+  <!-- Table to display student information -->
+  <table id="studentTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Major</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Student data will be populated here -->
+    </tbody>
+  </table>
+
+  <script>
+    const form = document.getElementById('studentForm');
+    const tableBody = document.querySelector('#studentTable tbody');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent default form submission
+
+      const formData = new FormData(form);
+      const studentData = {};
+
+      // Convert FormData to object
+      formData.forEach((value, key) => {
+        studentData[key] = value;
+      });
+
+      // Replace 'YOUR_API_ENDPOINT' with your actual API endpoint URL
+      const apiUrl = 'https://ifanowapp-production.up.railway.app/student';
+
+      // Use fetch API to send data to the backend endpoint
+      fetch(apiUrl, {
+        method: 'POST', // Change method according to your CRUD operation
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(studentData)
+      })
+      .then(response => {
+        if (response.ok) {
+          // Handle success response by fetching updated student data and refreshing the table
+          fetchStudentData();
+        } else {
+          // Handle error response
+          console.error('Error while adding student');
+        }
+      })
+      .catch(error => {
+        // Handle network errors
+        console.error('Network error:', error);
+      });
+    });
+
+    // Function to fetch and display student data in the table
+    function fetchStudentData() {
+      // Replace 'YOUR_FETCH_ENDPOINT' with your API endpoint to fetch student data
+      const fetchUrl = 'https://ifanowapp-production.up.railway.app/student';
+
+      fetch(fetchUrl)
+        .then(response => response.json())
+        .then(students => {
+          // Clear existing table content
+          tableBody.innerHTML = '';
+
+          // Populate table with student data
+          students.forEach(student => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${student.id}</td>
+              <td>${student.name}</td>
+              <td>${student.major}</td>
+              <td>${student.date}</td>
+            `;
+            tableBody.appendChild(row);
+          });
+        })
+        .catch(error => {
+          // Handle fetch error
+          console.error('Error fetching student data:', error);
+        });
+    }
+
+    // Fetch student data when the page loads
+    fetchStudentData();
+  </script>
+
+</body>
+</html>
