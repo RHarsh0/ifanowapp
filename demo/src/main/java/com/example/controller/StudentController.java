@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +21,12 @@ public class StudentController {
 	@Autowired
 	private StudentService serv;
 	@GetMapping("student/{id}")
-	public ResponseEntity<Student> getCustomerById(@PathVariable int id){
+	public ResponseEntity<Student> getStudentById(@PathVariable int id){
 		return new ResponseEntity<>(serv.getStudent(id),HttpStatus.FOUND);
+	}
+	@GetMapping("student")
+	public ResponseEntity<List<Student>> getAllStudent(){
+		return new ResponseEntity<>(serv.getAllStudent(),HttpStatus.FOUND);
 	}
 	@PostMapping("student")
 	public ResponseEntity<Student> addCustomer(@RequestBody Student obj){

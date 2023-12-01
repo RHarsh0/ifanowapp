@@ -1,5 +1,6 @@
 package com.example.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,9 @@ public class StudentService {
 			throw new RuntimeException("unable to find the student with given id");
 		}
 		 
+	}
+
+	public List<Student> getAllStudent() {
+		return repo.findAll();
 	}
 }
